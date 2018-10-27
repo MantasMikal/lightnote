@@ -1,0 +1,64 @@
+{
+	"name": "lightnote",
+	"version": "0.1.0",
+	"private": true,
+	"homepage": "./",
+	"main": "public/electron.js",
+	"dependencies": {
+		"electron-is-dev": "^1.0.1",
+		"react": "^16.5.2",
+		"react-codemirror": "^1.0.0",
+		"react-dev-tools": "^0.0.1",
+		"react-dom": "^16.5.2",
+		"react-markdown": "^4.0.3",
+		"react-scripts": "2.0.5",
+		"react-split-pane": "^0.1.84",
+		"styled-components": "^4.0.2"
+	},
+	"scripts": {
+		"build": "react-scripts build",
+		"test": "react-scripts test",
+		"eject": "react-scripts eject",
+		"start": "concurrently \"cross-env BROWSER=none yarn react-scripts start\" \"wait-on http://localhost:3000 && electron .\"",
+		"epack": "electron-builder --dir",
+		"dist": "npx build --x64 --win --linux --c.extraMetadata.main=build/electron.js -p always"
+	},
+	"eslintConfig": {
+		"extends": "react-app"
+	},
+	"browserslist": [
+		">0.2%",
+		"not dead",
+		"not ie <= 11",
+		"not op_mini all"
+	],
+	"devDependencies": {
+		"concurrently": "^4.0.1",
+		"cross-env": "^5.2.0",
+		"electron": "^3.0.5",
+		"electron-builder": "^20.28.4",
+		"wait-on": "^3.1.0"
+	},
+	"build": {
+		"appId": "com.lightnote",
+		"compression": "normal",
+		"productName": "Example",
+		"directories": {
+			"buildResources": "build",
+			"output": "dist"
+		},
+		"win": {
+			"target": "nsis",
+			"icon": "assets/icon.ico"
+		},
+		"linux": {
+			"icon": "assets/icon.png",
+			"target": [
+				"snap",
+				"AppImage"
+			],
+			"description": "Example",
+			"category": "Network;Feed"
+		}
+	}
+}
