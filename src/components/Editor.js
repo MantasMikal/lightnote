@@ -1,30 +1,43 @@
 import React, { Component } from 'react';
 import styled from 'styled-components';
-import CodeMirror from 'react-codemirror';
-
-const SCodeMirror = styled(CodeMirror)`
-    height: 100%;
-`
-
-require('codemirror/lib/codemirror.css')
-require('codemirror/mode/javascript/javascript')
-require('codemirror/mode/python/python')
-require('codemirror/mode/xml/xml')
-require('codemirror/mode/markdown/markdown')
-require('codemirror/theme/monokai.css')
-
+import ReactQuill from 'react-quill';
+import 'react-quill/dist/quill.snow.css';
 class Editor extends Component {
     constructor(props){
         super(props)
+        this.updateCode = this.updateCode.bind(this);
     }
-    render() {
-        let options = {
-            node: 'markdown',
-            theme: 'monokai'
-        }
+    
+    updateCode(e) {
+        this.props.onChange(e);
+    }
 
+    modules = {
+        toolbar: [
+          [{ 'header': [1, 2, false] }],
+          ['bold', 'italic', 'underline','strike', 'blockquote'],
+          [{'list': 'ordered'}, {'list': 'bullet'}, {'indent': '-1'}, {'indent': '+1'}],
+          ['link', 'image'],
+          ['clean']
+        ],
+      }
+    
+      formats = [
+        'header',
+        'bold', 'italic', 'underline', 'strike', 'blockquote',
+        'list', 'bullet', 'indent',
+        'link', 'image'
+      ] 
+
+    render() {
+        console.log(this.formats)
         return (
-            <SCodeMirror value={this.props.value} options={options} height="100%"/>
+            <ReactQuill 
+            value={this.props.value} 
+            onChange={this.updateCode} 
+            modules={this.modules}
+            formats={this.formats}
+            />
         )
     }
 
